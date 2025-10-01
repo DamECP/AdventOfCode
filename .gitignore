@@ -1,0 +1,10 @@
+# Ne pas versionner le cookie AoC
+session_cookie.txt
+
+# Inputs téléchargés
+**/ex*.txt
+
+# __pycache__ et fichiers compilés
+__pycache__/
+*.pyc
+
