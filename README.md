@@ -1,8 +1,9 @@
-# Advent of Code Scraper
+# Advent of Code Scraper + personnal solutions
 
 ## English Version
 
-This repository contains a Python script to fetch Advent of Code exercises and prepare Python files for each day.
+This repository contains a Python script to fetch Advent of Code exercises and prepare Python files for each day. It also includes my personnal solutions (namefiles including ^^).
+The scraper and solutions are handmade but the readme is AI generated.
 
 ### How it works
 - The script checks if the exercise input and Python files already exist.
@@ -26,7 +27,8 @@ This repository contains a Python script to fetch Advent of Code exercises and p
 
 ## Version Française
 
-Ce dépôt contient un script Python pour récupérer les exercices Advent of Code et préparer des fichiers Python pour chaque jour.
+Ce dépôt contient un script Python pour récupérer les exercices Advent of Code et préparer des fichiers Python pour chaque jour. J'ai ajouté mes solutions (les fichiers se terminant par ^^).
+Le script de scraping / construction de fichiers ainsi que les solutions sont faits à la main. Le readme a été généré par IA.
 
 ### Fonctionnement
 - Le script vérifie si l'exercice et les fichiers Python existent déjà.
