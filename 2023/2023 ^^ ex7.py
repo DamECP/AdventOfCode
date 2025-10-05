@@ -1,13 +1,24 @@
 class Hand:
     def __init__(self, hand, bid):
         self.hand = hand
+        self.joker = "J" in self.hand
         self.bid = int(bid)
         self.type = self.type_of_hand()
         self.value = self.score()
 
     def type_of_hand(self):
-        groups = [self.hand.count(i) for i in set(self.hand)]
-        return sorted(groups, reverse=True)
+
+        groups = sorted(
+            [self.hand.count(i) for i in set(self.hand) if i != "J"], reverse=True
+        )
+
+        if self.joker:
+            if groups:
+                groups[0] += self.hand.count("J")
+            else:
+                # edge case of [JJJJJ]
+                groups = [5]
+        return groups
 
     def score(self):
         card_values = {
@@ -25,6 +36,10 @@ class Hand:
             "K": 13,
             "A": 14,
         }
+
+        if self.joker == True:
+            card_values["J"] = 1
+
         return [card_values.get(i) for i in self.hand]
 
     def get_poker_score(self) -> int:
@@ -71,6 +86,10 @@ def same_poker_sorter(hands: list[Hand]):
     return sorted(hands, key=lambda h: h.value)
 
 
+for hand in all_hands:
+    print(hand, hand.joker, hand.score(), hand.type_of_hand())
+
+
 hands_by_poker = sort_by_poker(all_hands)
 
 part1_sort = []
@@ -78,9 +97,11 @@ for key, value in hands_by_poker.items():
     for hand in same_poker_sorter(value):
         part1_sort.append(hand)
 
-part1_score = 0
+score = 0
 for multiplier, hand in enumerate(part1_sort, 1):
     hand: Hand
-    part1_score += multiplier * hand.bid
+    score += multiplier * hand.bid
+    print(hand, hand.type_of_hand(), hand.get_poker_score())
 
-print(part1_score)
+
+print(score)
