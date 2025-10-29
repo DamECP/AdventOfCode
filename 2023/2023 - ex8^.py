@@ -10,30 +10,33 @@ with open("ex8.txt") as exercise:
         references[1] = references[1][:-1].strip()
         dataset[node] = references
 
-print(moves)
-print(dataset)
 
-start = "AAA"
-end = "ZZZ"
-
-counter = 0
-repeat = True
-
-while repeat:
-    for move in moves:
-        print(move)
-        if move == "L":
-            next_step = dataset.get(start)[0]
-        elif move == "R":
-            next_step = dataset.get(start)[1]
-
-        print(next_step)
-        counter += 1
-        if next_step == end:
-            repeat = False
-            break
-
-        start = next_step
+def part_2():
+    part_2 = [i for i in dataset.keys() if i.endswith("A")]
+    counter = 0
+    repeat = True
 
 
-print(counter)
+part_2()
+
+
+def part_1():
+    start = "AAA"
+    end = "ZZZ"
+    counter = 0
+    repeat = True
+    while repeat:
+        for move in moves:
+
+            if move == "L":
+                next_step = dataset.get(start)[0]
+            elif move == "R":
+                next_step = dataset.get(start)[1]
+
+            counter += 1
+            if next_step == end:
+                repeat = False
+                break
+
+            start = next_step
+    print(counter)
