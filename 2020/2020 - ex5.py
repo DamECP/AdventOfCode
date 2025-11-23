@@ -1,46 +1,52 @@
-def f(numbers):
-    max_ = len(numbers) // 2
-    return numbers[:max_]
-
-
-my_seat = 868
-seats = []
 with open("ex5.txt") as exercise:
-    max_n = 0
-    for line in exercise:
-        numbers = [i for i in range(128)]
-        columns = [i for i in range(8)]
+    data = [i.strip() for i in exercise]
 
-        line = line.replace("\n", "")
 
-        for i in line[:7]:
-            # print(i)
-            half = len(numbers) // 2
-            if i == "F":
-                numbers = numbers[:half]
-                # print(numbers)
-            if i == "B":
-                numbers = numbers[half:]
-                # print(numbers)
-            row = numbers[0]
-        for i in line[7:]:
-            # print(i)
-            half = len(columns) // 2
-            if i == "R":
-                columns = columns[half:]
-                # print(columns)
-            if i == "L":
-                columns = columns[:half]
-                # print(columns)
-            column = columns[0]
-            # print(column)
-        seat = row * 8 + column
-        seats.append(seat)
-        if seat > max_n:
-            max_n = seat
+def difference(start: int, finish):
+    difference = finish - start
+    value = difference // 2
+    return value
 
-seats = sorted(seats)
 
-for i, seat in enumerate(seats):
-    if not seats[i - 1] and not seats[i + 1]:
-        print(seat)
+def row(instructions):
+    start = 0
+    finish = 127
+    for i in instructions[:-1]:
+        value = difference(start, finish)
+        if i == "F":
+            finish -= value + 1
+        elif i == "B":
+            start += value + 1
+    if instructions[-1] == "F":
+        return start
+    return finish
+
+
+def column(instructions):
+    start = 0
+    finish = 7
+    for i in instructions[:-1]:
+        value = difference(start, finish)
+        if i == "L":
+            finish -= value + 1
+        elif i == "R":
+            start += value + 1
+    if instructions[-1] == "L":
+        return start
+    return finish
+
+
+all_seats = []
+for d in data:
+    d_row = row(d[:7])
+    d_col = column(d[-3:])
+    seat_id = d_row * 8 + d_col
+    all_seats.append(seat_id)
+
+# answer1
+print(max(all_seats))
+
+
+# answer2
+myseat = set(range(min(all_seats), max(all_seats))) - set(all_seats)
+print(myseat)
