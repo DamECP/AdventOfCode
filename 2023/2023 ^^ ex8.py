@@ -1,3 +1,5 @@
+import numpy
+
 dataset = {}
 with open("ex8.txt") as exercise:
     lines = exercise.readlines()
@@ -10,14 +12,47 @@ with open("ex8.txt") as exercise:
         references[1] = references[1][:-1].strip()
         dataset[node] = references
 
+test_moves = "LR"
+test_dataset = {
+    "11A": ["11B", "XXX"],
+    "11B": ["XXX", "11Z"],
+    "11Z": ["11B", "XXX"],
+    "22A": ["22B", "XXX"],
+    "22B": ["22C", "22C"],
+    "22C": ["22Z", "22Z"],
+    "22Z": ["22B", "22B"],
+    "XXX": ["XXX", "XXX"],
+}
+
 
 def part_2():
-    part_2 = [i for i in dataset.keys() if i.endswith("A")]
-    counter = 0
-    repeat = True
+    part_2 = [k for k in dataset.keys() if k.endswith("A")]
+
+    multipliers = []
+    for i in part_2:
+        counter = 0
+
+        not_found = True
+
+        while not_found:
+            for char in moves:
+                counter += 1
+                if char == "L":
+                    i = dataset[i][0]
+                else:
+                    i = dataset[i][1]
+
+                if i.endswith("Z"):
+                    multipliers.append(counter)
+                    not_found = False
+
+    return multipliers
 
 
-part_2()
+arr = numpy.array(part_2())
+answer_2 = numpy.lcm.reduce(arr)
+
+print(answer_2)
 
 
 def part_1():
