@@ -1,5 +1,7 @@
 # Advent of Code Scraper + personnal solutions
 
+# Current score (11/24/2025) : 166
+
 ## English Version
 
 This repository contains a Python script to fetch Advent of Code exercises and prepare Python files for each day. It also includes my personnal solutions (namefiles including ^^).
