@@ -25,6 +25,28 @@ test_dataset = {
 }
 
 
+def part_1():
+    start = "AAA"
+    end = "ZZZ"
+    counter = 0
+    repeat = True
+    while repeat:
+        for move in moves:
+
+            if move == "L":
+                next_step = dataset.get(start)[0]
+            elif move == "R":
+                next_step = dataset.get(start)[1]
+
+            counter += 1
+            if next_step == end:
+                repeat = False
+                break
+
+            start = next_step
+    print(counter)
+
+
 def part_2():
     part_2 = [k for k in dataset.keys() if k.endswith("A")]
 
@@ -53,25 +75,3 @@ arr = numpy.array(part_2())
 answer_2 = numpy.lcm.reduce(arr)
 
 print(answer_2)
-
-
-def part_1():
-    start = "AAA"
-    end = "ZZZ"
-    counter = 0
-    repeat = True
-    while repeat:
-        for move in moves:
-
-            if move == "L":
-                next_step = dataset.get(start)[0]
-            elif move == "R":
-                next_step = dataset.get(start)[1]
-
-            counter += 1
-            if next_step == end:
-                repeat = False
-                break
-
-            start = next_step
-    print(counter)
