@@ -1,6 +1,6 @@
 # Advent of Code Scraper + personnal solutions
 
-## Current score (11/24/2025) : 166 ⭐️
+## Current score (11/24/2025) : 173 ⭐️
 
 ## English Version
 
