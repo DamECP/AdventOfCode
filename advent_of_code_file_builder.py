@@ -33,7 +33,7 @@ with open("session_cookie.txt") as cookiefile:  # store cookie in a variable
 current_year = datetime.now().year
 changes = False
 
-for year in range(2015, current_year + 1):
+for year in range(2025, current_year + 1):
     print(year)
     existing_files = set(os.listdir(str(year))) if os.path.exists(str(year)) else set()
 
@@ -55,6 +55,9 @@ for year in range(2015, current_year + 1):
 
         try:
             my_request = urllib.request.Request(url)  # define a request
+            my_request.add_header(
+                "User-Agent", "github.com/damECP/aoc-script by damECP@example.com"
+            )
             my_request.add_header(
                 "Cookie", f"session={cookie}"
             )  # add the cookie to the request

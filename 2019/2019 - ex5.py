@@ -1,64 +1,32 @@
-with open("ex5.txt") as exercise:
+with open("ex2.txt") as exercise:
     data = exercise.read()
     data = [int(i.strip()) for i in data.split(",")]
 
-
-def opcode1(par1, par2, data: list, par3) -> list:
-    n3 = data[par1] + data[par2]
-    data[par3] = n3
-    return data
+positions = {i: data[i] for i in range(len(data))}
 
 
-def opcode2(par1, par2, data: list, par3) -> list:
-    n3 = data[par1] * data[par2]
-    data[par3] = n3
-    return data
+def op_1(n1, n2, n3):
+    positions[n3] = positions[n1] + positions[n2]
 
 
-def opcode3(input_, par1, data):
-    data[par1] = input_
-    return data
+def op_2(n1, n2, n3):
+    positions[n3] = positions[n1] * positions[n2]
 
 
-def opcode4(par1, data):
-    output = data[par1]
-    return output
+i = 0
 
+while i < len(data):
 
-def mode(one_or_two: int, n: int, data: list) -> int:
-    if one_or_two == 0:
-        return data[n]
-    elif one_or_two == 1:
-        return n
+    ref = positions[i]
 
+    if ref == 99:
+        break
 
-memorised_n = 1
-for i, elt in enumerate(data):
-    par1, par2, output = (
-        data[i + 1],
-        data[i + 2],
-        data[i + 3],
-    )
-    if elt == 1:
-        data = opcode1(par1, par2, data, par3)
-    elif elt == 2:
-        data = opcode2(par1, par2, data, par3)
-    elif elt == 3:
-        data = opcode3(start, par1, data)
-    elif elt == 4:
-        memorised_n = opcode4(par1)
+    a, b, c = positions[i + 1], positions[i + 2], positions[i + 3]
 
-    if str(elt[0]) != "-" and len(str(elt)) == 4:
-        op, mod1, mod2 = (
-            str(elt[-1]),
-            str(elt[-3]),
-            str(elt[-4]),
-        )
-        if op == 1:
-            data = opcode1(par1, par2, data, par3)
-        elif op == 2:
-            data = opcode2(par1, par2, data, par3)
-        elif op == 3:
-            data = opcode3(start, par1, data)
-        elif op == 4:
-            memorised_n = opcode4(par1)
+    if ref == 1:
+        op_1(a, b, c)
+    elif ref == 2:
+        op_2(a, b, c)
+
+    i += 4
