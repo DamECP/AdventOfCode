@@ -26,21 +26,20 @@ pairs = [
 pairs.sort(key=lambda b: b[2])
 
 
-def answer_1(n):
-    # n is part of the instructions
-    shortest_pairs = pairs[:n]
+def answer_1():
+    shortest_pairs = pairs[:1000]
 
     circuits = []
 
     for b1, b2, dist in shortest_pairs:
-        # checks of one of the values is in a circuit already
+        # checks if one of the values is in a circuit already
         overlap = [c for c in circuits if b1 in c or b2 in c]
 
         # if not, build its own one
         if not overlap:
             circuits.append(set([b1, b2]))
 
-        # or merge b1, b2 and the current circuit to avoid doubles
+        # or merge b1, b2 and the current circuit
         else:
             merged = set([b1, b2])
             for c in overlap:
@@ -48,29 +47,24 @@ def answer_1(n):
                 circuits.remove(c)
             circuits.append(merged)
 
-    # get the 3 biggest circuits
+    # get the 3 largest circuits
     sizes = sorted([len(c) for c in circuits], reverse=True)[:3]
-    # use the formula
+
     return prod(sizes)
 
 
-print(answer_1(1000))
+print(answer_1())
 
 
 def answer_2():
-    # n is part of the instructions
-
     circuits = []
 
     for b1, b2, dist in pairs:
-        # checks of one of the values is in a circuit already
         overlap = [c for c in circuits if b1 in c or b2 in c]
 
-        # if not, build its own one
         if not overlap:
             circuits.append(set([b1, b2]))
 
-        # or merge b1, b2 and the current circuit to avoid doubles
         else:
             merged = set([b1, b2])
             for c in overlap:
@@ -78,6 +72,7 @@ def answer_2():
                 circuits.remove(c)
             circuits.append(merged)
 
+        # stops when there is only one huge circuit
         if len(circuits) == 1 and len(circuits[0]) == len(boxes):
             return b1.array[0] * b2.array[0]
 
